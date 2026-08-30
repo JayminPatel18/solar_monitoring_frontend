@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "../api/axiosConfig";
 import Navbar from "../components/Navbar";
 
@@ -22,6 +22,7 @@ function PanelDetails() {
     const [performance, setPerformance] = useState(null);
     const [powerData, setPowerData] = useState([]);
     const [temperatureData, setTemperatureData] = useState([]);
+    const [sensorData, setSensorData]  = useState([]);
 
     useEffect(() => {
         fetchData();
@@ -52,11 +53,15 @@ function PanelDetails() {
             const performanceRes = await axios.get(`/api/analytics/performance/${id}`);
             const powerRes = await axios.get(`/api/analytics/power/${id}`);
             const tempRes = await axios.get(`/api/analytics/temperature/${id}`);
+            const sensorRes = await axios.get(`/api/data/panel/${id}`)
 
             setSummary(summaryRes.data.data);
             setPerformance(performanceRes.data.data);
             setPowerData(powerRes.data.data);
             setTemperatureData(tempRes.data.data);
+            setSensorData(sensorRes.data);
+
+            console.log(sensorRes)
 
         } catch (error) {
             console.error(error);
@@ -128,6 +133,7 @@ function PanelDetails() {
                                 <div className="col-md-3">
                                     <strong>Total Generated :</strong> {summary.totalPowerGenerated} kW
                                 </div>
+                        
 
                             </div>
 
@@ -237,7 +243,7 @@ function PanelDetails() {
                         <div className="card shadow">
 
                             <div className="card-header bg-danger text-white">
-                                Temperature Analytics
+                                Temperggature Analytics
                             </div>
 
                             <div className="card-body">
@@ -278,6 +284,111 @@ function PanelDetails() {
                         </div>
 
                     </div>
+                    
+                     {/* Sensor History */}
+
+                <hr className="my-5" />
+
+                <h3 className="mb-3">
+                    Sensor Reading History
+                </h3>
+
+
+                {
+                    sensorData.length === 0 ? (
+
+                        <div className="alert alert-warning">
+                            No Sensor Data Available.
+                        </div>
+
+                    ) : (
+
+                        <div className="table-responsive">
+
+                            <table className="table table-striped table-hover table-bordered">
+
+                                <thead className="table-dark">
+
+                                    <tr>
+
+                                        <th>#</th>
+
+                                        <th>Timestamp</th>
+
+                                        <th>Voltage (V)</th>
+
+                                        <th>Current (A)</th>
+
+                                        <th>Power (W)</th>
+
+                                        <th>Temperature (°C)</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    {
+                                        sensorData.map(
+                                            (reading, index) => (
+
+                                                <tr key={reading.id}>
+
+                                                    <td>
+                                                        {index + 1}
+                                                    </td>
+
+                                                    <td>
+
+                                                        {
+                                                            reading.timestamp
+
+                                                                ? new Date(
+                                                                    reading.timestamp
+                                                                ).toLocaleString(
+                                                                    "en-IN",
+                                                                    {
+                                                                        dateStyle: "medium",
+                                                                        timeStyle: "short"
+                                                                    }
+                                                                )
+
+                                                                : "N/A"
+                                                        }
+
+                                                    </td>
+
+                                                    <td>
+                                                        {reading.voltage}
+                                                    </td>
+
+                                                    <td>
+                                                        {reading.current}
+                                                    </td>
+
+                                                    <td>
+                                                        {reading.power}
+                                                    </td>
+
+                                                    <td>
+                                                        {reading.temperature}
+                                                    </td>
+
+                                                </tr>
+
+                                            )
+                                        )
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    )
+                }
 
                 </div>
 

@@ -152,7 +152,7 @@ function DashboardPage() {
                             color="#6f42c1"
                         />
 
-                        
+
 
                         <div className="card shadow mt-3 border-0">
                             <div className="card-body">
@@ -165,37 +165,39 @@ function DashboardPage() {
 
                                     {role === "ADMIN" && (
                                         <div className="col-md-3 mb-3">
-                                        <Link
-                                            to="/users/create"
-                                            state={{ from: "admin" }}
-                                            className="btn btn-primary w-100"
-                                        >
-                                            <FaUserPlus className="me-2" />
-                                            Create User
-                                        </Link>
+                                            <Link
+                                                to="/users/create"
+                                                state={{ from: "admin" }}
+                                                className="btn btn-primary w-100"
+                                            >
+                                                <FaUserPlus className="me-2" />
+                                                Create User
+                                            </Link>
 
-                                    </div>
+                                        </div>
                                     )}
 
-                                    <div className="col-md-3 mb-3">
-                                        <button
-                                            className="btn btn-success w-100"
-                                            onClick={() => navigate("/panels/create")}
-                                        >
-                                            <FaPlus className="me-2" />
-                                            Create Panel
-                                        </button>
-                                    </div>
+                                    {role !== "USER" && (
+                                        <div className="col-md-3 mb-3">
+                                            <button
+                                                className="btn btn-success w-100"
+                                                onClick={() => navigate("/panels/create")}
+                                            >
+                                                <FaPlus className="me-2" />
+                                                Create Panel
+                                            </button>
+                                        </div>
+                                    )}
 
                                     {role === "ADMIN" && (
                                         <div className="col-md-3 mb-3">
-                                        <button
-                                            className="btn btn-outline-primary w-100"
-                                            onClick={() => navigate("/users")}
-                                        >
-                                            View Users
-                                        </button>
-                                    </div>
+                                            <button
+                                                className="btn btn-outline-primary w-100"
+                                                onClick={() => navigate("/users")}
+                                            >
+                                                View Users
+                                            </button>
+                                        </div>
                                     )}
 
                                     <div className="col-md-3 mb-3">

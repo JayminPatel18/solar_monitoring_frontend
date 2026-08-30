@@ -11,6 +11,7 @@ import Users from "../pages/Users";
 import EditUser from "../pages/EditUser";
 import CreateUser from "../pages/CreateUser";
 import SensorData from "../pages/SensorData";
+import CreateSensorData from "../pages/CreateSensorData";
 
 
 function AppRoutes() {
@@ -33,7 +34,7 @@ function AppRoutes() {
           }
         />
 
-          {/* For Panels */}
+        {/* For Panels */}
         <Route
           path="/panels"
           element={
@@ -70,7 +71,7 @@ function AppRoutes() {
           }
         />
 
-          {/* For Users data  */}
+        {/* For Users data  */}
         <Route
           path="/users"
           element={
@@ -109,7 +110,7 @@ function AppRoutes() {
           }
         />
 
-        {/* <Route
+        <Route
           path="/sensor-data/create"
           element={
             <ProtectedRoute
@@ -118,7 +119,8 @@ function AppRoutes() {
               <CreateSensorData />
             </ProtectedRoute>
           }
-        /> */}
+        />
+
 
       </Routes>
 

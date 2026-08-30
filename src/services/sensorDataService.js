@@ -1,3 +1,4 @@
+
 import axios from "../api/axiosConfig";
 
 // Get all sensor readings
@@ -28,4 +29,19 @@ export const getTotalPower = (panelId) => {
 // Get smart status
 export const getPanelStatus = (panelId) => {
     return axios.get(`/api/data/status/${panelId}`);
+};
+
+// Get Power Analytics
+export const getPowerAnalytics = (panelId) => {
+    return axios.get(`/api/data/analytics/power/${panelId}`);
+};
+
+// Get Temperature Analytics
+export const getTemperatureAnalytics = (panelId) => {
+    return axios.get(`/api/data/analytics/temperature/${panelId}`);
+};
+
+// Get Performance Analytics
+export const getPerformanceAnalytics = (panelId) => {
+    return axios.get(`/api/data/analytics/performance/${panelId}`);
 };
